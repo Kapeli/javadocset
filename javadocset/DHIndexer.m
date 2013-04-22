@@ -223,40 +223,44 @@
             printf("File manager error was %s\n", [[error localizedDescription] UTF8String]);
             return nil;
         }
-        [self writeInfoPlist];
-        printf("done\n");
+        NSString *docsetIndexFile = nil;
         NSString *summaryPath = [self.apiPath stringByAppendingPathComponent:@"overview-summary.html"];
+        BOOL foundSummary = NO;
         if(![fileManager fileExistsAtPath:summaryPath])
         {
             NSDirectoryEnumerator *dirEnum = [fileManager enumeratorAtPath:self.apiPath];
             NSInteger count = 0;
             NSString *file = nil;
-            BOOL found = NO;
             while((file = [dirEnum nextObject]) && count < 10000)
             {
                 if([file isEqualToString:@"overview-summary.html"])
                 {
                     self.apiPath = [[self.apiPath stringByAppendingPathComponent:file] stringByDeletingLastPathComponent];
-                    found = YES;
+                    foundSummary = YES;
                 }
                 ++count;
             }
-            if(!found)
-            {
-                printf("Error: The API folder you specified does not contains a overview-summary.html file and is not valid. Please contact the developer if you receive this error by mistake.\n");
-                [self printUsage];
-                return nil;
-            }
+        }
+        else
+        {
+            foundSummary = YES;
+        }
+        if(foundSummary)
+        {
+            docsetIndexFile = @"overview-summary.html";
         }
         if([fileManager fileExistsAtPath:[self.apiPath stringByAppendingPathComponent:@"index-files"]])
         {
+            docsetIndexFile = (docsetIndexFile) ? docsetIndexFile : @"index-files/index-1.html";
             self.hasMultipleIndexes = YES;
         }
+        printf("done\n");
         [self copyFiles];
         self.toIndex = [NSMutableArray array];
         if(!self.hasMultipleIndexes)
         {
             [self.toIndex addObject:[self.documentsDir stringByAppendingPathComponent:@"index-all.html"]];
+            docsetIndexFile = (docsetIndexFile) ? docsetIndexFile : @"index-all.html";
         }
         else
         {
@@ -271,15 +275,22 @@
                 }
             }
         }
+        if(!self.toIndex.count)
+        {
+            printf("Error: The API folder you specified does not contain any index files (either a index-all.html file or a index-files folder) and is not valid. Please contact the developer if you receive this error by mistake.\n");
+            [self printUsage];
+            return nil;
+        }
+        [self writeInfoPlist:docsetIndexFile];
         [self startIndexing];
     }
     return self;
 }
 
-- (void)writeInfoPlist
+- (void)writeInfoPlist:(NSString *)docsetIndexFile
 {
     NSString *platform = [[[self.docsetName componentsSeparatedByString:@" "] objectAtIndex:0] lowercaseString];
-    [[NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?><plist version=\"1.0\"><dict><key>CFBundleIdentifier</key><string>%@</string><key>CFBundleName</key><string>%@</string><key>DocSetPlatformFamily</key><string>%@</string><key>dashIndexFilePath</key><string>overview-summary.html</string><key>DashDocSetFamily</key><string>java</string><key>isDashDocset</key><true/></dict></plist>", platform, self.docsetName, platform] writeToFile:[self.contentsDir stringByAppendingPathComponent:@"Info.plist"] atomically:NO encoding:NSUTF8StringEncoding error:nil];
+    [[NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?><plist version=\"1.0\"><dict><key>CFBundleIdentifier</key><string>%@</string><key>CFBundleName</key><string>%@</string><key>DocSetPlatformFamily</key><string>%@</string><key>dashIndexFilePath</key><string>%@</string><key>DashDocSetFamily</key><string>java</string><key>isDashDocset</key><true/></dict></plist>", platform, self.docsetName, platform, docsetIndexFile] writeToFile:[self.contentsDir stringByAppendingPathComponent:@"Info.plist"] atomically:NO encoding:NSUTF8StringEncoding error:nil];
 }
 
 - (void)copyFiles
