@@ -58,19 +58,21 @@
         NSString *text = [parent innerText];
         NSString *type = nil;
         NSString *name = [anchor innerText];
-        if([text rangeOfString:@"Class in"].location != NSNotFound)
+        NSString *dtClassName = [parent className];
+        dtClassName = (dtClassName) ? dtClassName : @"";
+        if([text rangeOfString:@"Class in"].location != NSNotFound || [dtClassName hasSuffix:@"class"])
         {
             type = @"Class";
         }
-        else if([text rangeOfString:@"Static method in"].location != NSNotFound)
+        else if([text rangeOfString:@"Static method in"].location != NSNotFound || [dtClassName hasSuffix:@"method"])
         {
             type = @"Method";
         }
-        else if([text rangeOfString:@"Static variable in"].location != NSNotFound)
+        else if([text rangeOfString:@"Static variable in"].location != NSNotFound || [dtClassName hasSuffix:@"field"])
         {
             type = @"Field";
         }
-        else if([text rangeOfString:@"Constructor"].location != NSNotFound)
+        else if([text rangeOfString:@"Constructor"].location != NSNotFound || [dtClassName hasSuffix:@"constructor"])
         {
             type = @"Constructor";
         }
@@ -82,27 +84,27 @@
         {
             type = @"Field";
         }
-        else if([text rangeOfString:@"Interface in"].location != NSNotFound)
+        else if([text rangeOfString:@"Interface in"].location != NSNotFound || [dtClassName hasSuffix:@"interface"])
         {
             type = @"Interface";
         }
-        else if([text rangeOfString:@"Exception in"].location != NSNotFound)
+        else if([text rangeOfString:@"Exception in"].location != NSNotFound || [dtClassName hasSuffix:@"exception"])
         {
             type = @"Exception";
         }
-        else if([text rangeOfString:@"Error in"].location != NSNotFound)
+        else if([text rangeOfString:@"Error in"].location != NSNotFound || [dtClassName hasSuffix:@"error"])
         {
             type = @"Error";
         }
-        else if([text rangeOfString:@"Enum in"].location != NSNotFound)
+        else if([text rangeOfString:@"Enum in"].location != NSNotFound || [dtClassName hasSuffix:@"enum"])
         {
             type = @"Enum";
         }
-        else if([text rangeOfString:@"package"].location != NSNotFound)
+        else if([text rangeOfString:@"package"].location != NSNotFound || [dtClassName hasSuffix:@"package"])
         {
             type = @"Package";
         }
-        else if([text rangeOfString:@"Annotation Type"].location != NSNotFound)
+        else if([text rangeOfString:@"Annotation Type"].location != NSNotFound || [dtClassName hasSuffix:@"annotation"])
         {
             type = @"Notation";
         }
@@ -111,7 +113,7 @@
             printf("\nWarning: could not determine type for %s. Please tell the developer about this!\n", [name UTF8String]);
             continue;
         }
-        NSString *path = [[anchor absoluteLinkURL] path];
+        NSString *path = [[anchor absoluteLinkURL] absoluteString];
         NSRange baseRange = [path rangeOfString:@".docset/Contents/Resources/Documents/" options:NSBackwardsSearch];
         if(baseRange.location != NSNotFound)
         {
@@ -257,7 +259,7 @@
         printf("done\n");
         [self copyFiles];
         self.toIndex = [NSMutableArray array];
-        if(!self.hasMultipleIndexes)
+        if(!self.hasMultipleIndexes && [fileManager fileExistsAtPath:[self.documentsDir stringByAppendingPathComponent:@"index-all.html"]])
         {
             [self.toIndex addObject:[self.documentsDir stringByAppendingPathComponent:@"index-all.html"]];
             docsetIndexFile = (docsetIndexFile) ? docsetIndexFile : @"index-all.html";
@@ -277,7 +279,7 @@
         }
         if(!self.toIndex.count)
         {
-            printf("Error: The API folder you specified does not contain any index files (either a index-all.html file or a index-files folder) and is not valid. Please contact the developer if you receive this error by mistake.\n");
+            printf("\nError: The API folder you specified does not contain any index files (either a index-all.html file or a index-files folder) and is not valid. Please contact the developer if you receive this error by mistake.\n\n");
             [self printUsage];
             return nil;
         }
