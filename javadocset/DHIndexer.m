@@ -191,6 +191,11 @@
     if(self)
     {
         NSArray *arguments = [[NSProcessInfo processInfo] arguments];
+        if(arguments.count == 2 && [[arguments objectAtIndex:1] isEqualToString:@"--help"])
+        {
+            [self printUsage];
+            exit(0);
+        }
         if(arguments.count != 3)
         {
             printf("Error: too %s arguments\n", (arguments.count > 3) ? "many" : "few");
