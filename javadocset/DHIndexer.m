@@ -68,7 +68,7 @@
         {
             type = @"Method";
         }
-        else if([text rangeOfString:@"Static variable in"].location != NSNotFound || [dtClassName hasSuffix:@"field"])
+        else if([text rangeOfString:@"Static variable in"].location != NSNotFound || [dtClassName hasSuffix:@"field"] || [text rangeOfString:@"Field in"].location != NSNotFound)
         {
             type = @"Field";
         }
