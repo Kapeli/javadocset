@@ -60,7 +60,7 @@
         NSString *name = [anchor innerText];
         NSString *dtClassName = [parent className];
         dtClassName = (dtClassName) ? dtClassName : @"";
-        if([text rangeOfString:@"Class in"].location != NSNotFound || [dtClassName hasSuffix:@"class"])
+        if([text rangeOfString:@"Class in"].location != NSNotFound || [text rangeOfString:@"- class"].location != NSNotFound || [dtClassName hasSuffix:@"class"])
         {
             type = @"Class";
         }
@@ -84,19 +84,19 @@
         {
             type = @"Field";
         }
-        else if([text rangeOfString:@"Interface in"].location != NSNotFound || [dtClassName hasSuffix:@"interface"])
+        else if([text rangeOfString:@"Interface in"].location != NSNotFound || [text rangeOfString:@"- interface"].location != NSNotFound || [dtClassName hasSuffix:@"interface"])
         {
             type = @"Interface";
         }
-        else if([text rangeOfString:@"Exception in"].location != NSNotFound || [dtClassName hasSuffix:@"exception"])
+        else if([text rangeOfString:@"Exception in"].location != NSNotFound || [text rangeOfString:@"- exception"].location != NSNotFound || [dtClassName hasSuffix:@"exception"])
         {
             type = @"Exception";
         }
-        else if([text rangeOfString:@"Error in"].location != NSNotFound || [dtClassName hasSuffix:@"error"])
+        else if([text rangeOfString:@"Error in"].location != NSNotFound || [text rangeOfString:@"- error"].location != NSNotFound || [dtClassName hasSuffix:@"error"])
         {
             type = @"Error";
         }
-        else if([text rangeOfString:@"Enum in"].location != NSNotFound || [dtClassName hasSuffix:@"enum"])
+        else if([text rangeOfString:@"Enum in"].location != NSNotFound || [text rangeOfString:@"- enum"].location != NSNotFound || [dtClassName hasSuffix:@"enum"])
         {
             type = @"Enum";
         }
@@ -111,6 +111,7 @@
         else
         {
             printf("\nWarning: could not determine type for %s. Please tell the developer about this!\n", [name UTF8String]);
+            printf("\n%s and %s\n", [text UTF8String], [dtClassName UTF8String]);
             continue;
         }
         NSString *path = [[anchor absoluteLinkURL] absoluteString];
