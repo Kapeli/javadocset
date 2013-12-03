@@ -43,7 +43,7 @@
         {
             continue;
         }
-        if([[parent tagName] isCaseInsensitiveLike:@"span"])
+        if([[parent tagName] isCaseInsensitiveLike:@"span"] || [[parent tagName] isCaseInsensitiveLike:@"code"])
         {
             parent = (DOMHTMLElement*)[parent parentElement];
             if([parent firstChild] != [anchor parentElement])
