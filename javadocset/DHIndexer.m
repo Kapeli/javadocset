@@ -100,6 +100,10 @@
         {
             type = @"Enum";
         }
+        else if([text rangeOfString:@"Trait in"].location != NSNotFound)
+        {
+            type = @"Trait";
+        }
         else if([text rangeOfString:@"package"].location != NSNotFound || [dtClassName hasSuffix:@"package"])
         {
             type = @"Package";

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>3B9A7EAD-4237-4DC3-97BD-31606C5AE73A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>javadocset</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>E730A8C8D6CA67DF28251A4E7BC0DF447D42AB07</key>
+		<string>https://github.com/Kapeli/javadocset.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>javadocset.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>E730A8C8D6CA67DF28251A4E7BC0DF447D42AB07</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Kapeli/javadocset.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E730A8C8D6CA67DF28251A4E7BC0DF447D42AB07</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E730A8C8D6CA67DF28251A4E7BC0DF447D42AB07</string>
+			<key>IDESourceControlWCCName</key>
+			<string>javadocset</string>
+		</dict>
+	</array>
+</dict>
+</plist>
