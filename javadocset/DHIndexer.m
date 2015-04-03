@@ -60,57 +60,57 @@
         NSString *name = [anchor innerText];
         NSString *dtClassName = [parent className];
         dtClassName = (dtClassName) ? dtClassName : @"";
-        if([text rangeOfString:@"Class in"].location != NSNotFound || [text rangeOfString:@"- class"].location != NSNotFound || [dtClassName hasSuffix:@"class"])
+        if([text rangeOfString:@"Class in" options:NSCaseInsensitiveSearch].location != NSNotFound || [text rangeOfString:@"- class" options:NSCaseInsensitiveSearch].location != NSNotFound || [dtClassName hasSuffix:@"class"])
         {
             type = @"Class";
         }
-        else if([text rangeOfString:@"Static method in"].location != NSNotFound || [dtClassName hasSuffix:@"method"])
+        else if([text rangeOfString:@"Static method in" options:NSCaseInsensitiveSearch].location != NSNotFound || [dtClassName hasSuffix:@"method"])
         {
             type = @"Method";
         }
-        else if([text rangeOfString:@"Static variable in"].location != NSNotFound || [dtClassName hasSuffix:@"field"] || [text rangeOfString:@"Field in"].location != NSNotFound)
+        else if([text rangeOfString:@"Static variable in" options:NSCaseInsensitiveSearch].location != NSNotFound || [dtClassName hasSuffix:@"field"] || [text rangeOfString:@"Field in" options:NSCaseInsensitiveSearch].location != NSNotFound)
         {
             type = @"Field";
         }
-        else if([text rangeOfString:@"Constructor"].location != NSNotFound || [dtClassName hasSuffix:@"constructor"])
+        else if([text rangeOfString:@"Constructor" options:NSCaseInsensitiveSearch].location != NSNotFound || [dtClassName hasSuffix:@"constructor"])
         {
             type = @"Constructor";
         }
-        else if([text rangeOfString:@"Method in"].location != NSNotFound)
+        else if([text rangeOfString:@"Method in" options:NSCaseInsensitiveSearch].location != NSNotFound)
         {
             type = @"Method";
         }
-        else if([text rangeOfString:@"Variable in"].location != NSNotFound)
+        else if([text rangeOfString:@"Variable in" options:NSCaseInsensitiveSearch].location != NSNotFound)
         {
             type = @"Field";
         }
-        else if([text rangeOfString:@"Interface in"].location != NSNotFound || [text rangeOfString:@"- interface"].location != NSNotFound || [dtClassName hasSuffix:@"interface"])
+        else if([text rangeOfString:@"Interface in" options:NSCaseInsensitiveSearch].location != NSNotFound || [text rangeOfString:@"- interface" options:NSCaseInsensitiveSearch].location != NSNotFound || [dtClassName hasSuffix:@"interface"])
         {
             type = @"Interface";
         }
-        else if([text rangeOfString:@"Exception in"].location != NSNotFound || [text rangeOfString:@"- exception"].location != NSNotFound || [dtClassName hasSuffix:@"exception"])
+        else if([text rangeOfString:@"Exception in" options:NSCaseInsensitiveSearch].location != NSNotFound || [text rangeOfString:@"- exception" options:NSCaseInsensitiveSearch].location != NSNotFound || [dtClassName hasSuffix:@"exception"])
         {
             type = @"Exception";
         }
-        else if([text rangeOfString:@"Error in"].location != NSNotFound || [text rangeOfString:@"- error"].location != NSNotFound || [dtClassName hasSuffix:@"error"])
+        else if([text rangeOfString:@"Error in" options:NSCaseInsensitiveSearch].location != NSNotFound || [text rangeOfString:@"- error" options:NSCaseInsensitiveSearch].location != NSNotFound || [dtClassName hasSuffix:@"error"])
         {
             type = @"Error";
         }
-        else if([text rangeOfString:@"Enum in"].location != NSNotFound || [text rangeOfString:@"- enum"].location != NSNotFound || [dtClassName hasSuffix:@"enum"])
+        else if([text rangeOfString:@"Enum in" options:NSCaseInsensitiveSearch].location != NSNotFound || [text rangeOfString:@"- enum" options:NSCaseInsensitiveSearch].location != NSNotFound || [dtClassName hasSuffix:@"enum"])
         {
             type = @"Enum";
         }
-        else if([text rangeOfString:@"Trait in"].location != NSNotFound)
+        else if([text rangeOfString:@"Trait in" options:NSCaseInsensitiveSearch].location != NSNotFound)
         {
             type = @"Trait";
         }
-        else if([text rangeOfString:@"package"].location != NSNotFound || [dtClassName hasSuffix:@"package"])
-        {
-            type = @"Package";
-        }
-        else if([text rangeOfString:@"Annotation Type"].location != NSNotFound || [dtClassName hasSuffix:@"annotation"])
+        else if([text rangeOfString:@"Annotation Type" options:NSCaseInsensitiveSearch].location != NSNotFound || [dtClassName hasSuffix:@"annotation"])
         {
             type = @"Notation";
+        }
+        else if([text rangeOfString:@"package" options:NSCaseInsensitiveSearch].location != NSNotFound || [dtClassName hasSuffix:@"package"])
+        {
+            type = @"Package";
         }
         else
         {
