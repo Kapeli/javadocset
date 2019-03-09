@@ -104,6 +104,10 @@
         {
             type = @"Trait";
         }
+        else if([text rangeOfString:@"Script in" options:NSCaseInsensitiveSearch].location != NSNotFound)
+        {
+            type = @"Script";
+        }
         else if([text rangeOfString:@"Annotation Type" options:NSCaseInsensitiveSearch].location != NSNotFound || [dtClassName hasSuffix:@"annotation"])
         {
             type = @"Notation";
