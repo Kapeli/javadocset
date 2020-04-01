@@ -3,7 +3,7 @@
 #import "FMDatabase.h"
 #import "FMDatabaseAdditions.h"
 
-@interface DHIndexer : NSObject
+@interface DHIndexer : NSObject <WebFrameLoadDelegate>
 
 @property (retain) NSString *apiPath;
 @property (retain) NSString *workingDir;
