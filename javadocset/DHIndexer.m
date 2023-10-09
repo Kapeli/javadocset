@@ -60,7 +60,11 @@
         NSString *name = [anchor innerText];
         NSString *dtClassName = [parent className];
         dtClassName = (dtClassName) ? dtClassName : @"";
-        if([text rangeOfString:@"Class in" options:NSCaseInsensitiveSearch].location != NSNotFound || [text rangeOfString:@"- class" options:NSCaseInsensitiveSearch].location != NSNotFound || [dtClassName hasSuffix:@"class"])
+        if([text rangeOfString:@"Search tag in" options:NSCaseInsensitiveSearch].location != NSNotFound || [text rangeOfString:@"- search tag" options:NSCaseInsensitiveSearch].location != NSNotFound)
+        {
+            type = @"Section";
+        }
+        else if([text rangeOfString:@"Class in" options:NSCaseInsensitiveSearch].location != NSNotFound || [text rangeOfString:@"- class" options:NSCaseInsensitiveSearch].location != NSNotFound || [dtClassName hasSuffix:@"class"])
         {
             type = @"Class";
         }
