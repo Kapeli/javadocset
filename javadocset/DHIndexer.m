@@ -55,9 +55,9 @@
         {
             continue;
         }
-        NSString *text = [parent innerText];
+        NSString *text = [parent textContent];
         NSString *type = nil;
-        NSString *name = [anchor innerText];
+        NSString *name = [anchor textContent];
         NSString *dtClassName = [parent className];
         dtClassName = (dtClassName) ? dtClassName : @"";
         if([text rangeOfString:@"Search tag in" options:NSCaseInsensitiveSearch].location != NSNotFound || [text rangeOfString:@"- search tag" options:NSCaseInsensitiveSearch].location != NSNotFound)
